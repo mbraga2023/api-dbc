@@ -12,18 +12,18 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebMvc
-public class CorsConfig{
+public class CorsConfig {
 
 	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("https://api-dbc.onrender.com")); // Replace with your frontend URL
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE")); // Add allowed methods
-		configuration.setAllowedHeaders(Arrays.asList("*")); // Allow all headers
-		configuration.setAllowCredentials(true); // Allow credentials if required
+	public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(false); // Set to false to disable credentials
+		config.addAllowedOrigin("http://localhost:5500"); // Adjust port as needed
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
 	}
 	}
 
