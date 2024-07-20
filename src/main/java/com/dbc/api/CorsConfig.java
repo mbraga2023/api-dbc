@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.util.Arrays;
 
 @Configuration
-@EnableWebMvc
 public class CorsConfig {
 
 	@Bean
@@ -19,11 +18,12 @@ public class CorsConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(false); // Set to false to disable credentials
-		config.addAllowedOrigin("http://localhost:5500"); // Adjust port as needed
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("*");
+		config.addAllowedOrigin("http://127.0.0.1:5500"); // Add specific origin
+		config.addAllowedOriginPattern("*://localhost:*"); // Allows all origins on localhost with any port
+		config.addAllowedHeader("*"); // Allow all headers
+		config.addAllowedMethod("*"); // Allow all HTTP methods
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
 	}
-	}
+}
 
